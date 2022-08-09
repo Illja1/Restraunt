@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+   {{ block.super }} : {{title}}
+{% endblock %}
+
+
+
+{% block content %}
+  <div class="col-md-12">
+  {% for item in lands %}
+  <div class="card mb-3">
+    <div class="card-header">
+        Category:<a href="{% url 'category' item.category.pk %}">{{ item.category }}</a>
+    </div>
+
+    <div class="card-body">
+      <div class="media">
+          {% if item.photo %}
+              <img src="{{ item.photo.url }}" alt=""  class="slider-item" >
+          {% else %}
+              <img src="https://picsum.photos/536/354"alt=""  class="slider-item">
+          {% endif %}
+        <div class="media-body">
+          <h5 class="card-title">{{ item.title }}</h5>
+          {% autoescape off %}
+          <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:50 }}</p>
+          {% endautoescape %}
+          <a href="#" class="btn btn-primary">Read more...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+
+
+
+{%endblock%}
